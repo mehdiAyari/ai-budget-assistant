@@ -1,0 +1,20 @@
+---- Sample Budget Data
+--INSERT INTO budgets (category, monthly_limit, budget_year, budget_month, notes, alert_threshold, is_active, created_at, updated_at) VALUES
+--('Food', 500.00, 2024, 12, 'Monthly grocery and dining out budget', 80.00, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--('Transportation', 200.00, 2024, 12, 'Gas, public transport, and parking', 85.00, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--('Entertainment', 150.00, 2024, 12, 'Movies, games, subscriptions', 75.00, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--('Shopping', 300.00, 2024, 12, 'Clothes, electronics, misc purchases', 80.00, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--('Utilities', 250.00, 2024, 12, 'Electricity, water, internet, phone', 90.00, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--('Healthcare', 100.00, 2024, 12, 'Doctor visits, pharmacy, dental', 70.00, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+--
+---- Sample Transaction Data
+--INSERT INTO transactions (amount, description, date, category, type, created_at, updated_at) VALUES
+--(3000.00, 'Monthly Salary', '2024-12-01', 'Salary', 'INCOME', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--(500.00, 'Freelance Project', '2024-12-03', 'Freelance', 'INCOME', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--(50.00, 'Cash Back Reward', '2024-12-05', 'Rewards', 'INCOME', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--(120.50, 'Weekly Groceries', '2024-12-02', 'Food', 'EXPENSE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--(45.00, 'Gas Station', '2024-12-04', 'Transportation', 'EXPENSE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--(25.99, 'Netflix Subscription', '2024-12-01', 'Entertainment', 'EXPENSE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--(89.99, 'Shirt Purchase', '2024-12-03', 'Shopping', 'EXPENSE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--(150.00, 'Electric Bill', '2024-12-01', 'Utilities', 'EXPENSE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+--(35.00, 'Pharmacy', '2024-12-02', 'Healthcare', 'EXPENSE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

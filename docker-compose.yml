@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # MCP Server (Budget Tools Provider)
+  mcp-server:
+    build: ./budget-mcp-server
+    container_name: budget-mcp-server
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:budgetdb
+      - SPRING_H2_CONSOLE_ENABLED=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    networks:
+      - budget-network
+
+  # MCP Client (Spring AI with Chat Memory)
+  mcp-client:
+    build: ./budget-mcp-client
+    container_name: budget-mcp-client
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_AI_ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - SPRING_AI_MCP_CLIENT_SSE_CONNECTIONS_BUDGET_SERVER_URL=http://mcp-server:8081
+    depends_on:
+      mcp-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    networks:
+      - budget-network
+
+  # Frontend (React TypeScript)
+  frontend:
+    build: ./budget-chat-frontend
+    container_name: budget-chat-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_BASE=http://localhost:8080/api
+    depends_on:
+      mcp-client:
+        condition: service_healthy
+    networks:
+      - budget-network
+
+networks:
+  budget-network:
+    driver: bridge

@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: budget-mcp-client
+
+  # Spring AI Configuration for Docker
+  ai:
+    anthropic:
+      api-key: ${SPRING_AI_ANTHROPIC_API_KEY}
+      chat:
+        options:
+          model: claude-sonnet-4-20250514
+          temperature: 0.7
+          max-tokens: 2000
+
+    # MCP Client Configuration for Docker
+    mcp:
+      client:
+        enabled: true
+        name: budget-mcp-client
+        version: 1.0.0
+        type: ASYNC
+        request-timeout: 30s
+        toolcallback:
+          enabled: true
+        sse:
+          connections:
+            budget-server:
+              url: ${SPRING_AI_MCP_CLIENT_SSE_CONNECTIONS_BUDGET_SERVER_URL:http://mcp-server:8081}
+              sse-endpoint: /sse
+
+# CORS Configuration for Docker
+cors:
+  allowed-origins: 
+    - "http://localhost:3000"
+    - "http://frontend:3000"
+  allowed-methods: 
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    - OPTIONS
+  allowed-headers: "*"
+  allow-credentials: true
+
+# Logging Configuration for Docker
+logging:
+  level:
+    com.budgetclient: INFO
+    org.springframework.ai: INFO
+    org.springframework.ai.mcp: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

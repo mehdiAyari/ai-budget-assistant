@@ -1,0 +1,22 @@
+# Development Profile Configuration
+spring:
+  # H2 In-Memory Database for development
+  datasource:
+    url: jdbc:h2:mem:budgetdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+# Verbose logging for development
+logging:
+  level:
+    com.budgetserver: DEBUG
+    org.springframework.ai: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.springframework.ai.mcp: TRACE
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

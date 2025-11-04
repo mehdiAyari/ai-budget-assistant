@@ -1,0 +1,14 @@
+# Development Profile Configuration
+
+# CORS - Allow all origins for development
+app:
+  cors:
+    allowed-origins: "*"
+
+# Verbose logging for development
+logging:
+  level:
+    com.budgetclient: DEBUG
+    org.springframework.ai: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

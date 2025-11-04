@@ -1,0 +1,64 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: budget-mcp-server
+
+  # H2 Database Configuration
+  datasource:
+    url: ${DB_URL:jdbc:h2:file:./data/budgetdb;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE}
+    driver-class-name: org.h2.Driver
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: never
+
+  # MCP Server Configuration
+  ai:
+    mcp:
+      server:
+        name: budget-mcp-server
+        version: 1.0.0
+        type: ASYNC
+        instructions: "This server provides budget management tools and resources"
+        sse-message-endpoint: /mcp/messages
+        sse:
+          endpoint: /mcp/messages
+        capabilities:
+          tool: true
+          resource: true
+          prompt: true
+          completion: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# Logging Configuration
+logging:
+  level:
+    com.example.budgetserver: DEBUG
+    org.springframework.ai: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.springframework.ai.mcp: TRACE
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

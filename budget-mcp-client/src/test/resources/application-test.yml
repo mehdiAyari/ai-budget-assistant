@@ -1,0 +1,15 @@
+spring:
+  ai:
+    anthropic:
+      api-key: test-key
+    chat:
+      client:
+        enabled: false
+    mcp:
+      client:
+        enabled: false
+
+logging:
+  level:
+    com.budgetclient: DEBUG
+    org.springframework.ai: DEBUG

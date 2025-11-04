@@ -1,0 +1,27 @@
+# Production Profile Configuration
+
+# CORS - Restrict origins in production
+app:
+  cors:
+    allowed-origins: ${ALLOWED_ORIGINS:https://your-production-domain.com}
+
+# Spring AI Configuration
+spring:
+  ai:
+    anthropic:
+      chat:
+        options:
+          temperature: 0.5  # More conservative for production
+          max-tokens: 2000
+
+# Production logging - less verbose
+logging:
+  level:
+    com.budgetclient: INFO
+    org.springframework.ai: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+  file:
+    name: logs/budget-mcp-client.log
+    max-size: 10MB
+    max-history: 30

@@ -1,0 +1,49 @@
+server:
+  port: 0  # Random port for tests
+
+spring:
+  application:
+    name: budget-mcp-server-test
+
+  # H2 Test Database Configuration
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  h2:
+    console:
+      enabled: false  # Disabled for tests
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+  
+  sql:
+    init:
+      mode: never  # Don't run data.sql in tests
+
+  # MCP Server Test Configuration
+  ai:
+    mcp:
+      server:
+        name: budget-mcp-server-test
+        version: 1.0.0-test
+        type: ASYNC
+
+# Logging Configuration for Tests
+logging:
+  level:
+    com.budgetserver: INFO
+    org.springframework.ai: WARN
+    org.hibernate.SQL: WARN
+    org.springframework.ai.mcp: WARN
+    org.springframework.web: WARN
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

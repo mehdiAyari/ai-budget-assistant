@@ -1,0 +1,38 @@
+# Production Profile Configuration
+spring:
+  # File-based H2 for production (or configure PostgreSQL)
+  datasource:
+    url: ${DB_URL:jdbc:h2:file:./data/budgetdb;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Don't drop schema in production
+    show-sql: false
+
+  h2:
+    console:
+      enabled: false  # Disable H2 console in production
+
+# Production logging - less verbose
+logging:
+  level:
+    com.budgetserver: INFO
+    org.springframework.ai: INFO
+    org.hibernate.SQL: WARN
+    org.springframework.ai.mcp: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+  file:
+    name: logs/budget-mcp-server.log
+    max-size: 10MB
+    max-history: 30
+
+# Security headers
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info  # Only expose essential endpoints

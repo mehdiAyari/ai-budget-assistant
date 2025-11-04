@@ -1,0 +1,67 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: budget-mcp-server
+
+  # H2 Database Configuration for Docker
+  datasource:
+    url: jdbc:h2:mem:budgetdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true  # Allow external connections in Docker
+
+  jpa:
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: never
+
+  # MCP Server Configuration for Docker
+  ai:
+    mcp:
+      server:
+        name: budget-mcp-server
+        version: 1.0.0
+        type: ASYNC
+        instructions: "Budget management tools and resources"
+        sse-message-endpoint: /mcp/messages
+        sse:
+          endpoint: /mcp/messages
+        capabilities:
+          tool: true
+          resource: true
+          prompt: true
+          completion: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+# Logging Configuration for Docker
+logging:
+  level:
+    com.budgetserver: INFO
+    org.springframework.ai: INFO
+    org.springframework.ai.mcp: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
