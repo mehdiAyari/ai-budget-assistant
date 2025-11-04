@@ -2,6 +2,14 @@
 
 A **comprehensive AI-powered budget management platform** built with cutting-edge technologies including Spring AI, Anthropic Claude, Model Context Protocol (MCP), and React. This system demonstrates advanced microservices architecture with conversational AI integration for natural language budget management.
 
+📖 **Read the full tutorial on Medium:** [Building a Smart Budget Assistant with MCP, React, and Spring Boot](https://medium.com/@ayari.mehdi.93/building-a-smart-budget-assistant-with-mcp-react-and-spring-boot-the-ai-revolution-you-can-5cb5f4dd130a)
+
+## 💬 See It In Action
+
+![Budget Chat Assistant Demo](images/demo_final.gif)
+
+*Chat with your budget like a human. No forms, no buttons — just natural conversation powered by Claude AI.*
+
 ## 🌟 System Overview
 
 The Budget Management System consists of **three interconnected applications** that work together to provide a seamless AI-enhanced budget management experience:
@@ -354,19 +362,30 @@ environment:
 
 ### For Development
 ✅ Use `.env` file for API keys
+
 ✅ Never commit `.env` to git
+
 ✅ Use `dev` profile for testing
+
 ✅ Keep dependencies updated
 
 ### For Production
 ✅ Use `prod` profile
+
 ✅ Set strong database passwords
+
 ✅ Restrict CORS origins
+
 ✅ Enable HTTPS
+
 ✅ Disable H2 console
+
 ✅ Use PostgreSQL instead of H2
+
 ✅ Implement authentication/authorization
+
 ✅ Monitor logs and metrics
+
 ✅ Use secrets management (Vault, AWS Secrets Manager)
 
 ### Environment Variables Reference
